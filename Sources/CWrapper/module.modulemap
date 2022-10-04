@@ -1,0 +1,4 @@
+module CWrapper {
+    header "CWrapper.h"
+    export *
+}
