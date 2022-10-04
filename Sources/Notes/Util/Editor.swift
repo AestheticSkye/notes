@@ -24,36 +24,24 @@ class Editor {
 		endwin()
 	}
 	
-	init(fileName: String, contents: [String]) {
-		self.fileName = fileName
+	init(_ contents: [String]) {
 		lines = contents
 		run()
 	}
 	
-	init(fileName: String) {
-		self.fileName = fileName
-		run()
-	}
-	
 	init() {
-		fileName = "Untitled"
 		run()
 	}
 	
-	enum Mode: String {
-		case normal = "Normal Mode"
-		case exit = "Exit Mode"
+	private enum Mode {
+		case normal, exit
 	}
 	
 	private var x: Int = 0
 	private var y: Int = 0
 	
-	var mode = Mode.normal
+	private var mode = Mode.normal
 	var lines = [String()]
-	private var fileName: String
-	
-	private func removeLine() {}
-	private func removeLine(at line: Int) {}
 	
 	private func moveUp() {
 		if y-1 >= 0 {
