@@ -9,14 +9,10 @@ import Glibc.ncurses
 class Editor {
 	
 	private func run() {
-		func initTerminal() {
-			initscr()
-			cbreak()
-			noecho()
-			keypad(stdscr, true)
-		}
-		
-		initTerminal()
+		initscr()
+		cbreak()
+		noecho()
+		keypad(stdscr, true)
 		
 		while mode != .exit {
 			updateStatus()
