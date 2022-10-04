@@ -106,6 +106,7 @@ class Editor {
 							lines.remove(at: Int(y))
 							clrtoeol()
 							moveUp()
+						} else if x == 0 && y == 0 {
 						} else {
 							var line = Array(lines[Int(y)])
 							line.remove(at: Int(x) - 1)
