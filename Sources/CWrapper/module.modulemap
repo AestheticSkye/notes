@@ -1,4 +1,5 @@
 module CWrapper {
     header "CWrapper.h"
+	link "ncurses"
     export *
 }
