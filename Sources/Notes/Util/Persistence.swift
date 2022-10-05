@@ -1,10 +1,10 @@
 import Foundation
 
-enum JSONError: Error {
-	case jsonEncodingError, jsonFetchError, cannotFindJson, jsonDecodingError
-}
-
 final class Persistence {
+	
+	private enum Error: Swift.Error {
+		case directoryNotFound, jsonDecodingError
+	}
 	
 	var noteData = [Note]()
 	
@@ -69,37 +69,32 @@ final class Persistence {
 		guard let jsonString = String(data: try JSONEncoder().encode(noteData),
 									  encoding: String.Encoding.utf8)
 		else {
-			throw JSONError.jsonEncodingError
+			throw Error.jsonDecodingError
 		}
 		
-		if let documentDirectory = FileManager.default.urls(for: .desktopDirectory,
-															in: .userDomainMask).first {
-			let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
-			do {
-				try jsonString.write(to: pathWithFilename,
-									 atomically: true,
-									 encoding: .utf8)
-			} catch {
-				print(error)
-			}
+		let documentDirectory = FileManager.default.homeDirectoryForCurrentUser
+		let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
+		do {
+			try jsonString.write(to: pathWithFilename,
+								 atomically: true,
+								 encoding: .utf8)
+		} catch {
+			print(error)
 		}
+		
 	}
-
+	
 	private func fetchPersistentData() throws -> [Note] {
 		
-		guard let documentsUrl: URL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first
-
-		else {
-			throw JSONError.jsonFetchError
-		}
-
-		let destinationFileUrl = documentsUrl.appendingPathComponent("noteData.json")
-
+		let documentDirectory: URL = FileManager.default.homeDirectoryForCurrentUser
+		
+		let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
+		
 		var decodedData = [Note]()
 		
 		do {
 			
-			let data = try Data(contentsOf: destinationFileUrl, options: [])
+			let data = try Data(contentsOf: pathWithFilename, options: [])
 			
 			decodedData = try JSONDecoder().decode([Note].self, from: data)
 			
@@ -109,16 +104,16 @@ final class Persistence {
 		}
 		
 		return decodedData
-
+		
 	}
-
+	
 	init() {
 		do {
 			noteData = try fetchPersistentData()
 		} catch {
-			print(error)
+			print("Error: \(error)")
 		}
 	}
-
+	
 }
 
