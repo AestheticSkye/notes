@@ -83,69 +83,59 @@ struct Editor {
 			case KEY_DOWN:
 				moveDown()
 				return
-			default:
+			case 27: // ESC Key
+				mode = .exit
 				break
-		}
-		
-		switch mode {
-			case .normal:
-				switch input {
-					case 27: // ESC Key
-						mode = .exit
-						break
-					case 127: // Backspace
-						if x == 0 && y > 0 {
-							x = lines[y-1].count
-							lines[y-1] += lines[y]
-							lines.remove(at: Int(y))
-							clrtoeol()
-							moveUp()
-						} else if x == 0 && y == 0 {
-						} else {
-							var line = Array(lines[Int(y)])
-							line.remove(at: Int(x) - 1)
-							lines[Int(y)] = String(line)
-							moveLeft()
-							clrtoeol()
-						}
-						break
-					case KEY_DC: break
-						// MARK: Implement later
-						
-					case 10: // Return/Enter
-							 // The Enter key
-							 // Bring the rest of the line down
-						if x < lines[y].count {
-							let line = lines[y]
-							let startIndex = line.index(line.startIndex, offsetBy: x)
-							let range = startIndex..<line.endIndex
-							// Put the rest of the line on a new line
-							lines.insert(String(line[range]), at: y + 1)
-							// Remove that part of the line
-							lines[y].removeSubrange(range)
-							clrtoeol()
-							
-						} else {
-							lines.insert("", at: y+1)
-						}
-						x = 0;
-						moveDown();
-						break;
-					case 9: // Tab
-						var line: [Character] = Array(lines[Int(y)])
-						for _ in 1...4 {
-							line.insert(Character(" "), at: Int(x))
-						}
-						lines[Int(y)] = String(line)
-						x += 4
-					default:
-						var line: [Character] = Array(lines[Int(y)])
-						line.insert(Character(UnicodeScalar(UInt8(input))), at: Int(x))
-						lines[Int(y)] = String(line)
-						x += 1
+			case 127: // Backspace
+				if x == 0 && y > 0 {
+					x = lines[y-1].count
+					lines[y-1] += lines[y]
+					lines.remove(at: Int(y))
+					clrtoeol()
+					moveUp()
+				} else if x == 0 && y == 0 {
+				} else {
+					var line = Array(lines[Int(y)])
+					line.remove(at: Int(x) - 1)
+					lines[Int(y)] = String(line)
+					moveLeft()
+					clrtoeol()
 				}
-			case .exit: break
+				break
+			case KEY_DC: break
+				// MARK: Implement later
 				
+			case 10: // Return/Enter
+					 // The Enter key
+					 // Bring the rest of the line down
+				if x < lines[y].count {
+					let line = lines[y]
+					let startIndex = line.index(line.startIndex, offsetBy: x)
+					let range = startIndex..<line.endIndex
+					// Put the rest of the line on a new line
+					lines.insert(String(line[range]), at: y + 1)
+					// Remove that part of the line
+					lines[y].removeSubrange(range)
+					clrtoeol()
+					
+				} else {
+					lines.insert("", at: y+1)
+				}
+				x = 0;
+				moveDown();
+				break;
+			case 9: // Tab
+				var line: [Character] = Array(lines[Int(y)])
+				for _ in 1...4 {
+					line.insert(Character(" "), at: Int(x))
+				}
+				lines[Int(y)] = String(line)
+				x += 4
+			default:
+				var line: [Character] = Array(lines[Int(y)])
+				line.insert(Character(UnicodeScalar(UInt8(input))), at: Int(x))
+				lines[Int(y)] = String(line)
+				x += 1
 		}
 	}
 	func printBuffer() {
