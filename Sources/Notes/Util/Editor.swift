@@ -91,20 +91,30 @@ struct Editor {
 				if x == 0 && y > 0 {
 					x = lines[y-1].count
 					lines[y-1] += lines[y]
-					lines.remove(at: Int(y))
+					lines.remove(at: y)
 					clrtoeol()
 					moveUp()
 				} else if x == 0 && y == 0 {
 				} else {
 					var line = Array(lines[Int(y)])
-					line.remove(at: Int(x) - 1)
+					line.remove(at: x - 1)
 					lines[Int(y)] = String(line)
 					moveLeft()
 					clrtoeol()
 				}
 				break
-			case KEY_DC: break
-				// MARK: Implement later
+			case KEY_DC:
+				if x == lines[y].count && y != lines.count - 1 {
+					// Bring the line down
+					lines[y] += lines[y+1];
+					// Delete the line
+					lines.remove(at: y + 1)
+				} else {
+					var line = Array(lines[Int(y)])
+					line.remove(at: Int(x))
+					lines[Int(y)] = String(line)
+				}
+				break
 				
 			case 10: // Return/Enter
 					 // The Enter key
