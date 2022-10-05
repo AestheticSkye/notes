@@ -7,6 +7,9 @@ extension Notes {
 		
 		@Flag(name: .long)
 		var sortByName: Bool = false
+		
+		@Flag(name: .short, help: "Shows more information about the note")
+		var verbose: Bool = false
 
 		func run() {
 			let persistence = Persistence()
@@ -27,6 +30,19 @@ extension Notes {
 			
 			for note in notes {
 				print(note.date.formatDate() + " " + note.title)
+				if verbose {
+					var printedLines = Int()
+					for (index, line) in note.text.enumerated() {
+						if line != "" {
+							print("\(index + 1): \(note.text[index])")
+							printedLines += 1
+						}
+						if printedLines == 3 {
+							break
+						}
+					}
+					print("~~~")
+				}
 			}
 			
 		}
