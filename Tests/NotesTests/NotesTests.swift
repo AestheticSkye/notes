@@ -2,10 +2,10 @@ import XCTest
 @testable import notes
 
 final class notesTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-
+    func testPersistence() throws {
+        let persistence = Persistence()
+//		persistence.noteData?.append(Note(title: "Title", text: [""], date: "date"))
+//		try persistence.save()
+		print(persistence.noteData[0].text)
     }
 }

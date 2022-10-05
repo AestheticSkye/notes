@@ -6,7 +6,7 @@ import Darwin.ncurses
 import Glibc.ncurses
 #endif
 
-class Editor {
+final class Editor {
 	
 	private func run() {
 		initscr()
