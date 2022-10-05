@@ -19,7 +19,7 @@ extension Notes {
 		func run() throws {
 			var persistence = Persistence()
 			if all {
-				print("Are you sure you want to delete all notes? (y/N)")
+				print("Are you sure you want to delete all notes? [y/N]")
 				let choice = readLine()
 				if choice?.lowercased() == "y" {
 					for note in persistence.noteData{
