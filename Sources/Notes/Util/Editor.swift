@@ -3,6 +3,7 @@ import CWrapper
 struct Editor {
 	
 	private mutating func run() {
+		ESCDELAY = 0
 		initscr()
 		cbreak()
 		noecho()
