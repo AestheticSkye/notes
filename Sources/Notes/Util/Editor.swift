@@ -152,11 +152,13 @@ struct Editor {
 		for i in 0...LINES-1 {
 			if i >= lines.count {
 				move(i, 0);
+				clrtoeol()
 			}
 			else
 			{
 				lines[Int(i)].withCString { body in
 					movePrint(i, 0, body, false)
+					clrtoeol()
 				}
 			}
 		}
