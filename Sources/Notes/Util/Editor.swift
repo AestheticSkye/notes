@@ -96,9 +96,7 @@ struct Editor {
 					moveUp()
 				} else if x == 0 && y == 0 {
 				} else {
-					var line = Array(lines[y])
-					line.remove(at: x - 1)
-					lines[y] = String(line)
+					lines[y].remove(at: x - 1)
 					moveLeft()
 					clrtoeol()
 				}
@@ -110,9 +108,7 @@ struct Editor {
 					// Delete the line
 					lines.remove(at: y + 1)
 				} else {
-					var line = Array(lines[y])
-					line.remove(at: x)
-					lines[y] = String(line)
+					lines[y].remove(at: x)
 				}
 				break
 				
@@ -134,16 +130,12 @@ struct Editor {
 				moveDown()
 				break
 			case 9: // Tab
-				var line: [Character] = Array(lines[y])
 				for _ in 1...4 {
-					line.insert(Character(" "), at: x)
+					lines[y].insert(Character(" "), at: x)
 				}
-				lines[y] = String(line)
 				x += 4
 			default:
-				var line: [Character] = Array(lines[y])
-				line.insert(Character(UnicodeScalar(UInt8(input))), at: x)
-				lines[y] = String(line)
+				lines[y].insert(Character(UnicodeScalar(UInt8(input))), at: x)
 				x += 1
 		}
 	}
