@@ -40,21 +40,21 @@ struct Editor {
 	
 	private mutating func moveUp() {
 		if y-1 >= 0 {
-			y -= 1;
+			y -= 1
 		}
 		if x >= lines[y].count {
 			x = lines[y].count
 		}
-		move(Int32(y), Int32(x));
+		move(Int32(y), Int32(x))
 	}
 	private mutating func moveDown() {
 		if y+1 < LINES-1 && y+1 < lines.count {
-			y += 1;
+			y += 1
 		}
 		if x >= lines[y].count {
-			x = lines[y].count;
+			x = lines[y].count
 		}
-		move(Int32(y), Int32(x));
+		move(Int32(y), Int32(x))
 	}
 	private mutating func moveLeft() {
 		if x-1 >= 0 {
@@ -65,8 +65,8 @@ struct Editor {
 	private mutating func moveRight() {
 		if x+1 < COLS && x+1 <= lines[y].count
 		{
-			x += 1;
-			move(Int32(y), Int32(x));
+			x += 1
+			move(Int32(y), Int32(x))
 		}
 	}
 	
@@ -122,9 +122,9 @@ struct Editor {
 				} else {
 					lines.insert("", at: y+1)
 				}
-				x = 0;
-				moveDown();
-				break;
+				x = 0
+				moveDown()
+				break
 			case 9: // Tab
 				var line: [Character] = Array(lines[Int(y)])
 				for _ in 1...4 {
@@ -142,7 +142,7 @@ struct Editor {
 	func printBuffer() {
 		for i in 0...LINES-2 {
 			if i >= lines.count {
-				move(i, 0);
+				move(i, 0)
 				clrtoeol()
 			}
 			else
@@ -153,7 +153,7 @@ struct Editor {
 				}
 			}
 		}
-		move(Int32(y), Int32(x));
+		move(Int32(y), Int32(x))
 	}
 	func updateStatus() {
 		let status = "Press ESC to save\tCOL: \(x)\tROW: \(y)"
