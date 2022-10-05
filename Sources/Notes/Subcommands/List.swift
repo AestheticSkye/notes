@@ -1,11 +1,12 @@
+import Foundation
 import ArgumentParser
 
 extension Notes {
 	struct List: ParsableCommand {
-		static let configuration = CommandConfiguration(abstract: "Lists all notes.")
+		static let configuration = CommandConfiguration(abstract: "Lists all notes. By default sorted by date")
 		
-//		@Flag(name: .long) var sortByDate: Bool?
-//		@Flag(name: .long) var sortByName: Bool?
+		@Flag(name: .long)
+		var sortByName: Bool = false
 
 		func run() {
 			let persistence = Persistence()
@@ -15,7 +16,16 @@ extension Notes {
 				Notes.List.exit()
 			}
 			
-			for note in persistence.noteData {
+			var notes: [Note]
+			
+			if sortByName {
+				notes = persistence.noteData.sorted(by: {
+					$0.title.localizedCaseInsensitiveCompare($1.title) == ComparisonResult.orderedAscending })
+			} else {
+				notes = persistence.noteData
+			}
+			
+			for note in notes {
 				print(note.date.formatDate() + " " + note.title)
 			}
 			
