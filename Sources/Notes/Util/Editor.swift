@@ -1,10 +1,4 @@
-import Foundation
 import CWrapper
-#if os(macOS)
-import Darwin.ncurses
-#else
-import Glibc.ncurses
-#endif
 
 final class Editor {
 	
