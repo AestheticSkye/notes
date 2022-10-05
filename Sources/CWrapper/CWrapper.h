@@ -1,7 +1,7 @@
 #ifndef CWrapper_h
 #define CWrapper_h
 
-#include <curses.h>
+#include <ncurses.h>
 
 void movePrint(int y, int x, const char * text, bool highlighted) {
 	if(highlighted) {
