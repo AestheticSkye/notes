@@ -8,9 +8,7 @@ extension String {
 		dateFormattor.dateFormat = "YY/MM/dd HH:mm:ss"
 		return dateFormattor.string(from: date)
 	}
-}
-
-extension String {
+	
 	mutating func insert(_ newElement: Character, at index: Int) {
 		var array = Array(self)
 		array.insert(newElement, at: index)
@@ -23,3 +21,13 @@ extension String {
 		self = String(array)
 	}
 }
+
+extension FixedWidthInteger {
+	func convertToASCII() -> Character? {
+		if self <= 255 && self > 0 {
+			return Character(UnicodeScalar(UInt8(self)))
+		}
+		return nil
+	}
+}
+

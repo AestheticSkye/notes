@@ -141,8 +141,10 @@ struct Editor {
 				}
 				x += 4
 			default:
-				lines[y].insert(Character(UnicodeScalar(UInt8(input))), at: x)
-				x += 1
+				if let letter = input.convertToASCII() {
+					lines[y].insert(letter, at: x)
+					x += 1
+				}
 		}
 	}
 	func printBuffer() {
