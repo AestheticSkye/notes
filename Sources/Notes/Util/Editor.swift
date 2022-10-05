@@ -117,8 +117,6 @@ struct Editor {
 				break
 				
 			case 10: // Return/Enter
-					 // The Enter key
-					 // Bring the rest of the line down
 				if x < lines[y].count {
 					let line = lines[y]
 					let startIndex = line.index(line.startIndex, offsetBy: x)
