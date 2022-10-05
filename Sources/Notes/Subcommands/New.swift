@@ -11,7 +11,7 @@ extension Notes {
 		
 		func run() {
 			
-			let persistence = Persistence()
+			var persistence = Persistence()
 			
 			let newName: String = {
 				if let name {

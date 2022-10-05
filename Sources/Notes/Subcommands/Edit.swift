@@ -8,7 +8,7 @@ extension Notes {
 		var name: String
 		
 		func run() {
-			let persistence = Persistence()
+			var persistence = Persistence()
 			guard let note = persistence.query(name) else {
 				print("Could not find note")
 				return

@@ -1,6 +1,6 @@
 import Foundation
 
-final class Persistence {
+struct Persistence {
 	
 	private enum Error: Swift.Error {
 		case jsonDecodingError
@@ -26,7 +26,7 @@ final class Persistence {
 		return nil
 	}
 	
-	func edit(_ note: Note) {
+	mutating func edit(_ note: Note) {
 		for (index, oldNote) in noteData.enumerated() {
 			if oldNote.title == note.title {
 				noteData[index] = note
@@ -40,7 +40,7 @@ final class Persistence {
 		}
 	}
 	
-	func create(title: String, text: [String], date: Date) {
+	mutating func create(title: String, text: [String], date: Date) {
 		let newNote = Note(title: title, text: text, date: date.description)
 		noteData.append(newNote)
 		do {
@@ -51,7 +51,7 @@ final class Persistence {
 		}
 	}
 	
-	func delete(_ title: String) {
+	mutating func delete(_ title: String) {
 		for (index, note) in noteData.enumerated() {
 			if note.title == title {
 				noteData.remove(at: index)
@@ -101,7 +101,7 @@ final class Persistence {
 			
 		} catch {
 			try save()
-			noteData = try fetchPersistentData()
+			return try fetchPersistentData()
 		}
 		
 		return decodedData

@@ -1,8 +1,8 @@
 import CWrapper
 
-final class Editor {
+struct Editor {
 	
-	private func run() {
+	private mutating func run() {
 		initscr()
 		cbreak()
 		noecho()
@@ -37,7 +37,7 @@ final class Editor {
 	private var mode = Mode.normal
 	var lines = [String()]
 	
-	private func moveUp() {
+	private mutating func moveUp() {
 		if y-1 >= 0 {
 			y -= 1;
 		}
@@ -46,7 +46,7 @@ final class Editor {
 		}
 		move(Int32(y), Int32(x));
 	}
-	private func moveDown() {
+	private mutating func moveDown() {
 		if y+1 < LINES-1 && y+1 < lines.count {
 			y += 1;
 		}
@@ -55,13 +55,13 @@ final class Editor {
 		}
 		move(Int32(y), Int32(x));
 	}
-	private func moveLeft() {
+	private mutating func moveLeft() {
 		if x-1 >= 0 {
 			x -= 1
 			move(Int32(y), Int32(x))
 		}
 	}
-	private func moveRight() {
+	private mutating func moveRight() {
 		if x+1 < COLS && x+1 <= lines[y].count
 		{
 			x += 1;
@@ -69,7 +69,7 @@ final class Editor {
 		}
 	}
 	
-	func handleInput(_ input: Int32) {
+	mutating func handleInput(_ input: Int32) {
 		switch input {
 			case KEY_LEFT:
 				moveLeft()
