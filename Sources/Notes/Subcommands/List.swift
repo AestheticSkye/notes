@@ -12,7 +12,7 @@ extension Notes {
 			let persistence = Persistence()
 			
 			if persistence.noteData.count == 0 {
-				print("No notes have been created yet. Use 'notes new' to create one.")
+				print("No notes have been created yet. Use 'notes new <name>' to create one.")
 				Notes.List.exit()
 			}
 			
