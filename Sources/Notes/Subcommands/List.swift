@@ -41,7 +41,7 @@ extension Notes {
 							break
 						}
 					}
-					print("~~~")
+					print("")
 				}
 			}
 			
