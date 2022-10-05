@@ -1,8 +1,8 @@
 import CWrapper
 
 #if os(macOS)
-//Due to crash on linux systems if 127 is passed.
-//Will default to ncurses declaration on linux
+// Backspace keycode on linux is different to macOS
+// Will default to ncurses declaration on linux
 let KEY_BACKSPACE: Int32 = 127
 #endif
 
