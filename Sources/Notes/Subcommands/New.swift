@@ -3,7 +3,6 @@ import Foundation
 
 extension Notes {
 	struct New: ParsableCommand {
-		
 		static var configuration = CommandConfiguration(abstract: "Create a new note.")
 		
 		@Argument(help: "The name for the note. If left blank the name will be \"Untitled\"")
