@@ -1,5 +1,11 @@
 import CWrapper
 
+#if os(macOS)
+//Due to crash on linux systems if 127 is passed.
+//Will default to ncurses declaration on linux
+let KEY_BACKSPACE: Int32 = 127
+#endif
+
 struct Editor {
 	
 	private mutating func run() {
@@ -87,7 +93,7 @@ struct Editor {
 			case 27: // ESC Key
 				mode = .exit
 				break
-			case 127: // Backspace
+			case KEY_BACKSPACE:
 				if x == 0 && y > 0 {
 					x = lines[y-1].count
 					lines[y-1] += lines[y]
