@@ -2,7 +2,7 @@ import ArgumentParser
 
 extension Notes {
 	struct Delete: ParsableCommand {
-		static let configuration = CommandConfiguration(abstract: "Delete a note")
+		static let configuration = CommandConfiguration(abstract: "Delete a note.")
 		
 		@Argument(help: "Name of the note to delete")
 		var name: String

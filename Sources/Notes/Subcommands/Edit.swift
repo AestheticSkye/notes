@@ -4,7 +4,7 @@ extension Notes {
 	struct Edit: ParsableCommand {
 		static let configuration = CommandConfiguration(abstract: "Edit a note.")
 		
-		@Argument(help: "Name of the note to delete")
+		@Argument(help: "Name of the note to edit.")
 		var name: String
 		
 		func run() {

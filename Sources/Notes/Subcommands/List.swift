@@ -3,7 +3,7 @@ import ArgumentParser
 
 extension Notes {
 	struct List: ParsableCommand {
-		static let configuration = CommandConfiguration(abstract: "Lists all notes. By default sorted by date")
+		static let configuration = CommandConfiguration(abstract: "Lists all notes. By default sorted by date.")
 		
 		@Flag(name: .long)
 		var sortByName: Bool = false
