@@ -45,6 +45,7 @@ final class Persistence {
 		noteData.append(newNote)
 		do {
 			try save()
+			print("Note saved as \"\(title)\"")
 		} catch {
 			print("Failed to save note")
 		}
