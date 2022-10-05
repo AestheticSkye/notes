@@ -6,12 +6,34 @@ extension Notes {
 		func validate() throws {}
 		
 		@Argument(help: "The name for the note. If left blank the name will be the first line")
-		var name: String = "Untitled"
+		var name: String?
 		
 		func run() {
-			let editor = Editor()
+			
 			let persistence = Persistence()
-			persistence.create(title: name, text: editor.lines, date: Date())
+			
+			let newName: String = {
+				if let name {
+					return name
+				}
+				if persistence.checkForDuplicate("Untitled") == true {
+					var currentUntitled = 2
+					while true {
+						if persistence.checkForDuplicate("Untitled" + String(currentUntitled)) != true {
+							return "Untitled" + String(currentUntitled)
+						}
+						currentUntitled += 1
+					}
+				}
+				return "Untitled"
+				
+			}()
+			if persistence.checkForDuplicate(newName) == true {
+				print("Name \"\(newName)\" already taken")
+				return
+			}
+			let editor = Editor()
+			persistence.create(title: newName, text: editor.lines, date: Date())
 		}
 	}
 }

@@ -8,6 +8,15 @@ final class Persistence {
 	
 	var noteData = [Note]()
 	
+	func checkForDuplicate(_ title: String) -> Bool {
+		for note in noteData {
+			if note.title == title {
+				return true
+			}
+		}
+		return false
+	}
+	
 	func query(_ title: String) -> Note? {
 		for note in noteData {
 			if note.title == title {
