@@ -3,7 +3,7 @@ import Foundation
 final class Persistence {
 	
 	private enum Error: Swift.Error {
-		case directoryNotFound, jsonDecodingError
+		case jsonDecodingError
 	}
 	
 	var noteData = [Note]()
