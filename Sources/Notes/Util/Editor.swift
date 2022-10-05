@@ -96,9 +96,9 @@ struct Editor {
 					moveUp()
 				} else if x == 0 && y == 0 {
 				} else {
-					var line = Array(lines[Int(y)])
+					var line = Array(lines[y])
 					line.remove(at: x - 1)
-					lines[Int(y)] = String(line)
+					lines[y] = String(line)
 					moveLeft()
 					clrtoeol()
 				}
@@ -110,9 +110,9 @@ struct Editor {
 					// Delete the line
 					lines.remove(at: y + 1)
 				} else {
-					var line = Array(lines[Int(y)])
-					line.remove(at: Int(x))
-					lines[Int(y)] = String(line)
+					var line = Array(lines[y])
+					line.remove(at: x)
+					lines[y] = String(line)
 				}
 				break
 				
@@ -136,29 +136,29 @@ struct Editor {
 				moveDown()
 				break
 			case 9: // Tab
-				var line: [Character] = Array(lines[Int(y)])
+				var line: [Character] = Array(lines[y])
 				for _ in 1...4 {
-					line.insert(Character(" "), at: Int(x))
+					line.insert(Character(" "), at: x)
 				}
-				lines[Int(y)] = String(line)
+				lines[y] = String(line)
 				x += 4
 			default:
-				var line: [Character] = Array(lines[Int(y)])
-				line.insert(Character(UnicodeScalar(UInt8(input))), at: Int(x))
-				lines[Int(y)] = String(line)
+				var line: [Character] = Array(lines[y])
+				line.insert(Character(UnicodeScalar(UInt8(input))), at: x)
+				lines[y] = String(line)
 				x += 1
 		}
 	}
 	func printBuffer() {
-		for i in 0...LINES-2 {
-			if i >= lines.count {
-				move(i, 0)
+		for line in 0...LINES-2 {
+			if line >= lines.count {
+				move(line, 0)
 				clrtoeol()
 			}
 			else
 			{
-				lines[Int(i)].withCString { body in
-					movePrint(i, 0, body, false)
+				lines[Int(line)].withCString { body in
+					movePrint(Int32(line), 0, body, false)
 					clrtoeol()
 				}
 			}
