@@ -149,7 +149,7 @@ struct Editor {
 		}
 	}
 	func printBuffer() {
-		for i in 0...LINES-1 {
+		for i in 0...LINES-2 {
 			if i >= lines.count {
 				move(i, 0);
 				clrtoeol()
