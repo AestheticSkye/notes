@@ -9,7 +9,7 @@ extension Notes {
 		
 		func run() {
 			var persistence = Persistence()
-			guard let note = persistence.query(name) else {
+			guard var note = persistence.query(name) else {
 				print("Could not find note \"\(name)\"")
 				return
 			}

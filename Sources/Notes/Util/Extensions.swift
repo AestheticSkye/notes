@@ -23,7 +23,7 @@ extension String {
 }
 
 extension FixedWidthInteger {
-	// Some keys (function keys) send non UInt8 numbers
+	// Some keys (function keys) send non UInt8 numbers causing crash
 	func convertToASCII() -> Character? {
 		if self <= 255 && self > 0 {
 			return Character(UnicodeScalar(UInt8(self)))
