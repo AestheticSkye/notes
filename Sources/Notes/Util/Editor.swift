@@ -108,7 +108,7 @@ extension Notes {
 						clrtoeol()
 					}
 					break
-				case KEY_DC:
+				case 330: // Delete
 					if x == lines[y].count && y != lines.count - 1 {
 						// Bring the line down
 						lines[y] += lines[y+1];
