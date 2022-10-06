@@ -7,12 +7,12 @@ extension Notes {
 		@Flag(name: .long)
 		var all: Bool = false
 		
-		@Argument(help: "Name of the note to delete")
+		@Argument(help: "Name of the note to delete.")
 		var name: String?
 		
 		func validate() throws {
 			if !all && name == nil {
-				throw ValidationError("Please enter a name")
+				throw ValidationError("Please enter a name.")
 			}
 		}
 		

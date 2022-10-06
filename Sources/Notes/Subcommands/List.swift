@@ -3,12 +3,12 @@ import ArgumentParser
 
 extension Notes {
 	struct List: ParsableCommand {
-		static let configuration = CommandConfiguration(abstract: "List all notes. Sorted by date by default")
+		static let configuration = CommandConfiguration(abstract: "List all notes. Sorted by date by default.")
 		
 		@Flag(name: .long)
 		var sortByName: Bool = false
 		
-		@Flag(name: .short, help: "Show more information about the note")
+		@Flag(name: .short, help: "Show more information about the note.")
 		var verbose: Bool = false
 
 		func run() {
