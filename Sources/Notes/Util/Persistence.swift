@@ -9,6 +9,31 @@ extension Notes {
 		
 		var noteData = [Note]()
 		
+		mutating func getUntitledName(_ name: String?) -> String {
+			do {
+				try noteData = fetchPersistentData()
+			} catch {
+				print("Error getting note data")
+			}
+			
+			if let name {
+				return name
+			}
+			
+			if checkForDuplicate("Untitled") == true {
+				var currentUntitled = 2
+				while true {
+					if checkForDuplicate("Untitled" + String(currentUntitled)) != true {
+						return "Untitled" + String(currentUntitled)
+					}
+					currentUntitled += 1
+				}
+			}
+			
+			return "Untitled"
+			
+		}
+		
 		func checkForDuplicate(_ title: String) -> Bool {
 			for note in noteData {
 				if note.title == title {
