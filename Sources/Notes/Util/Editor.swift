@@ -73,6 +73,24 @@ extension Notes {
 			}
 		}
 		
+		private mutating func returnKey() {
+			if x < lines[y].count {
+				let line = lines[y]
+				let startIndex = line.index(line.startIndex, offsetBy: x)
+				let range = startIndex..<line.endIndex
+				// Put the rest of the line on a new line
+				lines.insert(String(line[range]), at: y + 1)
+				// Remove that part of the line
+				lines[y].removeSubrange(range)
+				clrtoeol()
+				
+			} else {
+				lines.insert("", at: y+1)
+			}
+			x = 0
+			moveDown()
+		}
+		
 		private mutating func handleInput(_ input: Int32) {
 			switch input {
 				case KEY_LEFT:
@@ -119,21 +137,7 @@ extension Notes {
 					break
 					
 				case 10: // Return/Enter
-					if x < lines[y].count {
-						let line = lines[y]
-						let startIndex = line.index(line.startIndex, offsetBy: x)
-						let range = startIndex..<line.endIndex
-						// Put the rest of the line on a new line
-						lines.insert(String(line[range]), at: y + 1)
-						// Remove that part of the line
-						lines[y].removeSubrange(range)
-						clrtoeol()
-						
-					} else {
-						lines.insert("", at: y+1)
-					}
-					x = 0
-					moveDown()
+					returnKey()
 					break
 				case 9: // Tab
 					for _ in 1...4 {
@@ -141,10 +145,14 @@ extension Notes {
 					}
 					x += 4
 				default:
+					if x == COLS {
+						returnKey()
+					}
 					if let letter = input.convertToASCII() {
 						lines[y].insert(letter, at: x)
 						x += 1
 					}
+					
 			}
 		}
 		private func printBuffer() {
@@ -164,11 +172,11 @@ extension Notes {
 			move(Int32(y), Int32(x))
 		}
 		private func updateStatus() {
-			let status = "Press ESC to save\tCOL: \(x)\tROW: \(y)"
+			let status = "Press ESC to save   COL: \(x)   ROW: \(y)"
 			status.withCString { body in
 				movePrint(LINES-1, 0, body, true)
 			}
-			
+			clrtoeol()
 			move(Int32(y),Int32(x))
 		}
 	}
