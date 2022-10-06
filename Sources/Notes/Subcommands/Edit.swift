@@ -13,9 +13,8 @@ extension Notes {
 				print("Could not find note \"\(name)\"")
 				return
 			}
-			let editor = Editor(note.text)
 			
-			note.text = editor.lines
+			note.text = Editor(note.text).lines
 			
 			persistence.edit(note)
 		}

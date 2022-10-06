@@ -32,8 +32,7 @@ extension Notes {
 				print("Name \"\(newName)\" already taken")
 				return
 			}
-			let editor = Editor()
-			persistence.create(title: newName, text: editor.lines, date: Date())
+			persistence.create(title: newName, text: Editor().lines, date: Date())
 		}
 	}
 }

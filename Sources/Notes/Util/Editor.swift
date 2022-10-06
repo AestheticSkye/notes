@@ -9,7 +9,7 @@ extension Notes {
 		private let KEY_BACKSPACE: Int32 = 127
 #endif
 		
-		private mutating func run() {
+		private mutating func initializeEditor() {
 			ESCDELAY = 0
 			initscr()
 			cbreak()
@@ -28,11 +28,11 @@ extension Notes {
 		
 		init(_ contents: [String]) {
 			lines = contents
-			run()
+			initializeEditor()
 		}
 		
 		init() {
-			run()
+			initializeEditor()
 		}
 		
 		private enum Mode {
