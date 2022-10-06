@@ -77,7 +77,7 @@ extension Notes {
 			}
 		}
 		
-		mutating func handleInput(_ input: Int32) {
+		private mutating func handleInput(_ input: Int32) {
 			switch input {
 				case KEY_LEFT:
 					moveLeft()
@@ -148,7 +148,7 @@ extension Notes {
 					}
 			}
 		}
-		func printBuffer() {
+		private func printBuffer() {
 			for line in 0...LINES-2 {
 				if line >= lines.count {
 					move(line, 0)
@@ -164,7 +164,7 @@ extension Notes {
 			}
 			move(Int32(y), Int32(x))
 		}
-		func updateStatus() {
+		private func updateStatus() {
 			let status = "Press ESC to save\tCOL: \(x)\tROW: \(y)"
 			status.withCString { body in
 				movePrint(LINES-1, 0, body, true)
