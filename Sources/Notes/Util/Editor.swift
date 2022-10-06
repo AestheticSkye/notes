@@ -16,7 +16,7 @@ extension Notes {
 			noecho()
 			keypad(stdscr, true)
 			
-			while mode != .exit {
+			while running {
 				updateStatus()
 				printBuffer()
 				let input = getch()
@@ -35,14 +35,10 @@ extension Notes {
 			initializeEditor()
 		}
 		
-		private enum Mode {
-			case normal, exit
-		}
-		
 		private var x: Int = 0
 		private var y: Int = 0
 		
-		private var mode = Mode.normal
+		private var running = true
 		var lines = [String()]
 		
 		private mutating func moveUp() {
@@ -92,7 +88,7 @@ extension Notes {
 					moveDown()
 					return
 				case 27: // ESC Key
-					mode = .exit
+					running = false
 					break
 				case KEY_BACKSPACE:
 					if x == 0 && y > 0 {
@@ -102,7 +98,7 @@ extension Notes {
 						clrtoeol()
 						moveUp()
 					} else if x == 0 && y == 0 {
-						// Fixes crash
+						// Fixes Index out of range crash
 					} else {
 						lines[y].remove(at: x - 1)
 						moveLeft()
@@ -116,7 +112,7 @@ extension Notes {
 						// Delete the line
 						lines.remove(at: y + 1)
 					} else if x == lines[y].count && y == lines.count - 1 {
-						// Fixes crash when using DEL at end of last line
+						// Fixes crash when using DEL at end of last line (Index out of range)
 					} else {
 						lines[y].remove(at: x)
 					}
