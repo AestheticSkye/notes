@@ -102,6 +102,7 @@ extension Notes {
 						clrtoeol()
 						moveUp()
 					} else if x == 0 && y == 0 {
+						// Fixes crash
 					} else {
 						lines[y].remove(at: x - 1)
 						moveLeft()
@@ -114,6 +115,8 @@ extension Notes {
 						lines[y] += lines[y+1];
 						// Delete the line
 						lines.remove(at: y + 1)
+					} else if x == lines[y].count && y == lines.count - 1 {
+						// Fixes crash when using DEL at end of last line
 					} else {
 						lines[y].remove(at: x)
 					}
