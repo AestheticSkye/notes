@@ -1,13 +1,13 @@
 import CWrapper
 
-#if os(macOS)
-// Backspace keycode on linux is different to macOS
-// Will default to ncurses declaration on linux
-let KEY_BACKSPACE: Int32 = 127
-#endif
-
 extension Notes {
 	struct Editor {
+		
+#if os(macOS)
+		// Backspace keycode on linux is different to macOS
+		// Will default to ncurses declaration on linux
+		let KEY_BACKSPACE: Int32 = 127
+#endif
 		
 		private mutating func run() {
 			ESCDELAY = 0

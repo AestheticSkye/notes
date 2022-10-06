@@ -3,7 +3,7 @@ import XCTest
 
 final class notesTests: XCTestCase {
     func testPersistence() throws {
-		let persistence = Notes.ΩPersistence()
+		let persistence = Notes.Persistence()
 //		persistence.noteData?.append(Note(title: "Title", text: [""], date: "date"))
 //		try persistence.save()
 		print(persistence.noteData[0].text)
