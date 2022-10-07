@@ -8,6 +8,12 @@ extension Notes {
 		@Flag(name: .long)
 		var sortByName: Bool = false
 		
+		@Option(name: .long)
+		var filterByName: String?
+		
+		@Option(name: .long)
+		var filterByContents: String?
+		
 		@Flag(name: .short, help: "Show more information about the note.")
 		var verbose: Bool = false
 
@@ -19,13 +25,25 @@ extension Notes {
 				Notes.List.exit()
 			}
 			
-			var notes: [Note]
+			var notes = persistence.noteData
 			
 			if sortByName {
-				notes = persistence.noteData.sorted(by: {
+				notes.sort(by: {
 					$0.title.localizedCaseInsensitiveCompare($1.title) == ComparisonResult.orderedAscending })
-			} else {
-				notes = persistence.noteData
+			}
+			
+			if let filterByName {
+				notes = notes.filter({ note in
+					note.title
+						.lowercased()
+						.contains(filterByName)
+				})
+			}
+			
+			if let filterByContents {
+				notes = notes.filter({ note in
+					note.contains(filterByContents)
+				})
 			}
 			
 			for note in notes {
