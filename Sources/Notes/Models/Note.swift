@@ -1,5 +1,3 @@
-import Foundation
-
 extension Notes {
 	struct Note: Codable {
 		

@@ -14,7 +14,7 @@ extension Notes {
 		@Option(name: .long)
 		var filterByContents: String?
 		
-		@Flag(name: .short, help: "Show more information about the note.")
+		@Flag(name: .shortAndLong, help: "Show more information about the note.")
 		var verbose: Bool = false
 
 		func run() {
