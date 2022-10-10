@@ -51,7 +51,7 @@ extension Notes {
 				Self.exit()
 			}
 			
-			var notes = sortAndFilter(persistence)
+			let notes = sortAndFilter(persistence)
 			
 			for note in notes {
 				print(note.date.formatDate() + " " + note.title)
