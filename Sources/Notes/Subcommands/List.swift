@@ -16,15 +16,9 @@ extension Notes {
 		
 		@Flag(name: .shortAndLong, help: "Show more information about the note.")
 		var verbose: Bool = false
-
-		func run() {
-			let persistence = Persistence()
-			
-			if persistence.noteData.count == 0 {
-				print("No notes have been created yet. Use 'notes new <name>' to create one.")
-				Notes.List.exit()
-			}
-			
+		
+		// Takes in persistence parameter to avoid having to reinitialize Persistence, saving performence
+		private func sortAndFilter(_ persistence: Persistence) -> [Note] {
 			var notes = persistence.noteData
 			
 			if sortByName {
@@ -45,6 +39,19 @@ extension Notes {
 					note.contains(filterByContents)
 				})
 			}
+			
+			return notes
+		}
+
+		func run() {
+			let persistence = Persistence()
+			
+			if persistence.noteData.count == 0 {
+				print("No notes have been created yet. Use 'notes new <name>' to create one.")
+				Self.exit()
+			}
+			
+			var notes = sortAndFilter(persistence)
 			
 			for note in notes {
 				print(note.date.formatDate() + " " + note.title)
