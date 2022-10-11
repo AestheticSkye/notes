@@ -9,6 +9,7 @@ extension Notes {
 		
 		var noteData = [Note]()
 		
+		// Counts through the current "Untitled" documents sequentially to get the next one
 		mutating func getUntitledName(_ name: String?) -> String {
 			do {
 				try noteData = fetchPersistentData()
@@ -20,10 +21,10 @@ extension Notes {
 				return name
 			}
 			
-			if checkForDuplicate("Untitled") == true {
+			if query("Untitled") != nil {
 				var currentUntitled = 2
 				while true {
-					if checkForDuplicate("Untitled" + String(currentUntitled)) != true {
+					if query("Untitled" + String(currentUntitled)) == nil {
 						return "Untitled" + String(currentUntitled)
 					}
 					currentUntitled += 1
@@ -32,15 +33,6 @@ extension Notes {
 			
 			return "Untitled"
 			
-		}
-		
-		func checkForDuplicate(_ title: String) -> Bool {
-			for note in noteData {
-				if note.title == title {
-					return true
-				}
-			}
-			return false
 		}
 		
 		func query(_ title: String) -> Note? {

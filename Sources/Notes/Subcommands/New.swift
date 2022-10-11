@@ -13,7 +13,7 @@ extension Notes {
 			var persistence = Persistence()
 			
 			if let name {
-				if persistence.checkForDuplicate(name) == true {
+				if persistence.query(name) != nil {
 					print("Name \"\(name)\" already taken")
 					return
 				}
