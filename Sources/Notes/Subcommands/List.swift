@@ -17,7 +17,7 @@ extension Notes {
 		@Flag(name: .shortAndLong, help: "Show more information about the note.")
 		var verbose: Bool = false
 		
-		// Takes in persistence parameter to avoid having to reinitialize Persistence, saving performence
+		// Takes in persistence parameter to avoid having to initialize Persistence twice
 		private func sortAndFilter(_ persistence: Persistence) -> [Note] {
 			var notes = persistence.noteData
 			

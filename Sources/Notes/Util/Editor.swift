@@ -1,3 +1,5 @@
+// Adepted from this tutorial: https://cheuksblog.ca/tutorial/c++/2015/02/01/ncurses-editor-tutorial-01.html
+
 import CWrapper
 
 extension Notes {

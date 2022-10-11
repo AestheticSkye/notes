@@ -9,6 +9,8 @@ extension String {
 		return dateFormattor.string(from: date)
 	}
 	
+	
+	// These two functions exist the existing functions require String.Index to work
 	mutating func insert(_ newElement: Character, at index: Int) {
 		var array = Array(self)
 		array.insert(newElement, at: index)
