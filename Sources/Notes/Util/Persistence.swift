@@ -9,13 +9,30 @@ extension Notes {
 		
 		var noteData = [Note]()
 		
-		func checkForDuplicate(_ title: String) -> Bool {
-			for note in noteData {
-				if note.title == title {
-					return true
+		// Counts through the current "Untitled" documents sequentially to get the next one
+		mutating func getUntitledName(_ name: String?) -> String {
+			do {
+				try noteData = fetchPersistentData()
+			} catch {
+				print("Error getting note data")
+			}
+			
+			if let name {
+				return name
+			}
+			
+			if query("Untitled") != nil {
+				var currentUntitled = 2
+				while true {
+					if query("Untitled" + String(currentUntitled)) == nil {
+						return "Untitled" + String(currentUntitled)
+					}
+					currentUntitled += 1
 				}
 			}
-			return false
+			
+			return "Untitled"
+			
 		}
 		
 		func query(_ title: String) -> Note? {

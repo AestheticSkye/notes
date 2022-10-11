@@ -8,25 +8,50 @@ extension Notes {
 		@Flag(name: .long)
 		var sortByName: Bool = false
 		
-		@Flag(name: .short, help: "Show more information about the note.")
+		@Option(name: .long)
+		var filterByName: String?
+		
+		@Option(name: .long)
+		var filterByContents: String?
+		
+		@Flag(name: .shortAndLong, help: "Show more information about the note.")
 		var verbose: Bool = false
+		
+		// Takes in persistence parameter to avoid having to initialize Persistence twice
+		private func sortAndFilter(_ persistence: Persistence) -> [Note] {
+			var notes = persistence.noteData
+			
+			if sortByName {
+				notes.sort(by: {
+					$0.title.localizedCaseInsensitiveCompare($1.title) == ComparisonResult.orderedAscending })
+			}
+			
+			if let filterByName {
+				notes = notes.filter({ note in
+					note.title
+						.lowercased()
+						.contains(filterByName)
+				})
+			}
+			
+			if let filterByContents {
+				notes = notes.filter({ note in
+					note.contains(filterByContents)
+				})
+			}
+			
+			return notes
+		}
 
 		func run() {
 			let persistence = Persistence()
 			
 			if persistence.noteData.count == 0 {
 				print("No notes have been created yet. Use 'notes new <name>' to create one.")
-				Notes.List.exit()
+				Self.exit()
 			}
 			
-			var notes: [Note]
-			
-			if sortByName {
-				notes = persistence.noteData.sorted(by: {
-					$0.title.localizedCaseInsensitiveCompare($1.title) == ComparisonResult.orderedAscending })
-			} else {
-				notes = persistence.noteData
-			}
+			let notes = sortAndFilter(persistence)
 			
 			for note in notes {
 				print(note.date.formatDate() + " " + note.title)
