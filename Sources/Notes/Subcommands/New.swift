@@ -12,16 +12,9 @@ extension Notes {
 			
 			var persistence = Persistence()
 			
-			if let name {
-				if persistence.query(name) != nil {
-					print("Name \"\(name)\" already taken")
-					return
-				}
-			}
-			
 			let text = Editor().lines
 			
-			persistence.create(title: persistence.getUntitledName(name), text: text, date: Date())
+			persistence.create(title: persistence.checkDuplicate(name ?? "Untitled"), text: text, date: Date())
 		}
 	}
 }
