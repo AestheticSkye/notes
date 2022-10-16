@@ -10,7 +10,10 @@ extension Notes {
 		var noteData = [Note]()
 		
 		// Checks to see if there is already a note with a title and returns the title with an integer appended if true
-		mutating func checkDuplicate(_ title: String) -> String {
+		mutating func checkDuplicate(_ title: String?) -> String {
+			
+			let title = title ?? "Untitled"
+			
 			do {
 				try noteData = fetchPersistentData()
 			} catch {
@@ -27,7 +30,7 @@ extension Notes {
 				}
 			}
 			
-			return "Untitled"
+			return title
 			
 		}
 		

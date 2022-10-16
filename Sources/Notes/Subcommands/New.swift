@@ -14,7 +14,7 @@ extension Notes {
 			
 			let text = Editor().lines
 			
-			persistence.create(title: persistence.checkDuplicate(name ?? "Untitled"), text: text, date: Date())
+			persistence.create(title: persistence.checkDuplicate(name), text: text, date: Date())
 		}
 	}
 }
