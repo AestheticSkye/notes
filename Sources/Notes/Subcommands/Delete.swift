@@ -4,7 +4,7 @@ extension Notes {
 	struct Delete: ParsableCommand {
 		static let configuration = CommandConfiguration(abstract: "Delete a note.")
 		
-		@Flag(name: .long)
+		@Flag(name: .shortAndLong)
 		var all: Bool = false
 		
 		@Argument(help: "Name of the note to delete.")
