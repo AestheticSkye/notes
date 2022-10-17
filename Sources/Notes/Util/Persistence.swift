@@ -15,7 +15,7 @@ extension Notes {
 			let title = title ?? "Untitled"
 			
 			do {
-				try noteData = fetchPersistentData()
+				try fetchPersistentData()
 			} catch {
 				print("Error getting note data")
 			}
@@ -99,10 +99,9 @@ extension Notes {
 			} catch {
 				print(error)
 			}
-			
 		}
 		
-		private func fetchPersistentData() throws -> [Note] {
+		private mutating func fetchPersistentData() throws {
 			
 			let documentDirectory: URL = FileManager.default.homeDirectoryForCurrentUser
 			
@@ -118,16 +117,16 @@ extension Notes {
 				
 			} catch {
 				try save()
-				return try fetchPersistentData()
+				try fetchPersistentData()
 			}
 			
-			return decodedData
+			noteData = decodedData
 			
 		}
 		
 		init() {
 			do {
-				noteData = try fetchPersistentData()
+				try fetchPersistentData()
 			} catch {
 				print("Error: \(error)")
 			}
