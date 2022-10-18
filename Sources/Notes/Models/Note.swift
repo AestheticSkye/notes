@@ -13,11 +13,5 @@ extension Notes {
 			}
 			return false
 		}
-		
-		init(title: String, text: [String], date: String) {
-			self.title = title
-			self.text = text
-			self.date = date
-		}
 	}
 }

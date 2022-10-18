@@ -14,12 +14,6 @@ extension Notes {
 			
 			let title = title ?? "Untitled"
 			
-			do {
-				try fetchPersistentData()
-			} catch {
-				print("Error getting note data")
-			}
-			
 			if query(title) != nil {
 				var currentUntitled = 2
 				while true {
@@ -107,20 +101,16 @@ extension Notes {
 			
 			let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
 			
-			var decodedData = [Note]()
-			
 			do {
 				
 				let data = try Data(contentsOf: pathWithFilename, options: [])
 				
-				decodedData = try JSONDecoder().decode([Note].self, from: data)
+				noteData = try JSONDecoder().decode([Note].self, from: data)
 				
 			} catch {
 				try save()
 				try fetchPersistentData()
 			}
-			
-			noteData = decodedData
 			
 		}
 		
