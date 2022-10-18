@@ -10,9 +10,9 @@ extension Notes {
 		
 		func run() {
 			
-			var persistence = Persistence()
-			
 			let text = Editor().lines
+			
+			var persistence = Persistence()
 			
 			persistence.create(title: persistence.checkDuplicate(name), text: text, date: Date())
 		}
