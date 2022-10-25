@@ -10,6 +10,9 @@ opt_in_rules:
 - toggle_bool
 - sorted_imports
 - let_var_whitespace
+- implicit_return
+- legacy_multiple
+- modifier_order
 excluded:
 - Carthage
 - Pods
