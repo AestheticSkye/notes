@@ -81,7 +81,7 @@ extension Notes {
 		
 		private func save() throws {
 			guard let jsonString = String(data: try JSONEncoder().encode(noteData),
-										  encoding: String.Encoding.utf8)
+										  encoding: .utf8)
 			else {
 				throw Error.jsonEncodingError
 			}
