@@ -4,13 +4,15 @@ extension Notes {
 	struct Persistence {
 		
 		private enum Error: Swift.Error {
-			case jsonDecodingError
+			case jsonEncodingError
 		}
 		
 		var noteData = [Note]()
 		
 		// Checks to see if there is already a note with a title and returns the title with an integer appended if true
 		mutating func checkDuplicate(_ title: String?) -> String {
+			
+			fetchPersistentData()
 			
 			let title = title ?? "Untitled"
 			
@@ -81,7 +83,7 @@ extension Notes {
 			guard let jsonString = String(data: try JSONEncoder().encode(noteData),
 										  encoding: String.Encoding.utf8)
 			else {
-				throw Error.jsonDecodingError
+				throw Error.jsonEncodingError
 			}
 			
 			let documentDirectory = FileManager.default.homeDirectoryForCurrentUser
@@ -95,31 +97,47 @@ extension Notes {
 			}
 		}
 		
-		private mutating func fetchPersistentData() throws {
+		private mutating func fetchPersistentData() {
 			
 			let documentDirectory: URL = FileManager.default.homeDirectoryForCurrentUser
 			
 			let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
 			
 			do {
+
+				if !FileManager().fileExists(atPath: pathWithFilename.path) {
+					print("First time ran, initailizing noteData.json")
+					try save()
+				}
 				
 				let data = try Data(contentsOf: pathWithFilename, options: [])
 				
 				noteData = try JSONDecoder().decode([Note].self, from: data)
 				
 			} catch {
-				try save()
-				try fetchPersistentData()
+				print()
+				
+				print("Error fetching data: \(error)\n\nData file may be corrupted, you can check the file at '~/noteData' or reset the file with 'notes delete --all'")
+				
+				exit()
 			}
 			
 		}
 		
-		init() {
+		static func deleteAll() {
+			let documentDirectory = FileManager.default.homeDirectoryForCurrentUser
+			let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
 			do {
-				try fetchPersistentData()
+				try "[]".write(to: pathWithFilename,
+									 atomically: true,
+									 encoding: .utf8)
 			} catch {
-				print("Error: \(error)")
+				print(error)
 			}
+		}
+		
+		init() {
+			fetchPersistentData()
 		}
 		
 	}
