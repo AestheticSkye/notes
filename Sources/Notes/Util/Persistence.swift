@@ -98,7 +98,7 @@ extension Notes {
 			do {
 
 				if !FileManager().fileExists(atPath: pathWithFilename.path) {
-					print("First time ran, initailizing noteData.json")
+					print("First time ran, initializing noteData.json")
 					try save()
 				}
 				

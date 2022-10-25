@@ -2,13 +2,12 @@ import Foundation
 
 extension String {
 	func formatDate() -> String {
-		let dateFormattor = DateFormatter()
-		dateFormattor.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
-		let date = dateFormattor.date(from: self)!
-		dateFormattor.dateFormat = "YY/MM/dd HH:mm:ss"
-		return dateFormattor.string(from: date)
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+		let date = dateFormatter.date(from: self)!
+		dateFormatter.dateFormat = "YY/MM/dd HH:mm:ss"
+		return dateFormatter.string(from: date)
 	}
-	
 	
 	// These two functions exist the existing functions require String.Index to work
 	mutating func insert(_ newElement: Character, at index: Int) {
