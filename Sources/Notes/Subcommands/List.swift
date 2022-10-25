@@ -1,5 +1,5 @@
-import Foundation
 import ArgumentParser
+import Foundation
 
 extension Notes {
 	struct List: ParsableCommand {
@@ -46,7 +46,7 @@ extension Notes {
 		func run() {
 			let persistence = Persistence()
 			
-			if persistence.noteData.count == 0 {
+			if persistence.noteData.isEmpty {
 				print("No notes have been created yet. Use 'notes new <name>' to create one.")
 				Self.exit()
 			}
@@ -58,7 +58,7 @@ extension Notes {
 				if verbose {
 					var printedLines = Int()
 					for (index, line) in note.text.enumerated() {
-						if line != "" {
+						if line.isEmpty {
 							print("\(index + 1): \(note.text[index])")
 							printedLines += 1
 						}
