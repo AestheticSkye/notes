@@ -86,15 +86,7 @@ extension Notes {
 				throw Error.jsonEncodingError
 			}
 			
-			let documentDirectory = FileManager.default.homeDirectoryForCurrentUser
-			let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
-			do {
-				try jsonString.write(to: pathWithFilename,
-									 atomically: true,
-									 encoding: .utf8)
-			} catch {
-				print(error)
-			}
+			FileManager.saveJSON(jsonString)
 		}
 		
 		private mutating func fetchPersistentData() {
@@ -123,15 +115,7 @@ extension Notes {
 		}
 		
 		static func deleteAll() {
-			let documentDirectory = FileManager.default.homeDirectoryForCurrentUser
-			let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
-			do {
-				try "[]".write(to: pathWithFilename,
-									 atomically: true,
-									 encoding: .utf8)
-			} catch {
-				print(error)
-			}
+			FileManager.saveJSON("[]")
 		}
 		
 		init() {
