@@ -115,8 +115,6 @@ extension Notes {
 				noteData = try JSONDecoder().decode([Note].self, from: data)
 				
 			} catch {
-				print()
-				
 				print("Error fetching data: \(error)\n\nData file may be corrupted, you can check the file at '~/noteData' or reset the file with 'notes delete --all'")
 				
 				exit()
