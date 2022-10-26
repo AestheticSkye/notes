@@ -1,3 +1,3 @@
 # notes
 
-A description of this package.
+## Command line note taking app
