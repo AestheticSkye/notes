@@ -1,3 +1,3 @@
 # notes
 
-## Command line note taking app
+### Command line note taking app
