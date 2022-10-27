@@ -93,7 +93,7 @@ extension Notes {
 
 				if !FileManager().fileExists(atPath: pathWithFilename.path) {
 					print("First time ran, initializing noteData.json")
-					try save()
+					FileManager.saveJSON("[]")
 				}
 
 				let data = try Data(contentsOf: pathWithFilename, options: [])

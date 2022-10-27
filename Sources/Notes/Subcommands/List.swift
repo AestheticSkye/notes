@@ -58,7 +58,7 @@ extension Notes {
 				if verbose {
 					var printedLines = Int()
 					for (index, line) in note.text.enumerated() {
-						if line.isEmpty {
+						if !line.isEmpty {
 							print("\(index + 1): \(note.text[index])")
 							printedLines += 1
 						}
