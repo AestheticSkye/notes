@@ -2,7 +2,6 @@ import Foundation
 
 extension Notes {
 	struct Persistence {
-
 		private enum Error: Swift.Error {
 			case jsonEncodingError
 		}
@@ -11,7 +10,6 @@ extension Notes {
 
 		// Checks to see if there is already a note with a title and returns the title with an integer appended if true
 		mutating func checkDuplicate(_ title: String?) -> String {
-
 			fetchPersistentData()
 
 			let title = title ?? "Untitled"
@@ -27,7 +25,6 @@ extension Notes {
 			}
 
 			return title
-
 		}
 
 		func query(_ title: String) -> Note? {
@@ -74,9 +71,7 @@ extension Notes {
 		}
 
 		private func save() throws {
-			guard let jsonString = String(data: try JSONEncoder().encode(noteData),
-					encoding: .utf8)
-			else {
+			guard let jsonString = String(data: try JSONEncoder().encode(noteData), encoding: .utf8) else {
 				throw Error.jsonEncodingError
 			}
 
@@ -84,13 +79,10 @@ extension Notes {
 		}
 
 		private mutating func fetchPersistentData() {
-
 			let documentDirectory: URL = FileManager.default.homeDirectoryForCurrentUser
-
 			let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
 
 			do {
-
 				if !FileManager().fileExists(atPath: pathWithFilename.path) {
 					print("First time ran, initializing noteData.json")
 					FileManager.saveJSON("[]")
@@ -99,7 +91,6 @@ extension Notes {
 				let data = try Data(contentsOf: pathWithFilename, options: [])
 
 				noteData = try JSONDecoder().decode([Note].self, from: data)
-
 			} catch {
 				print("""
 					  Error fetching data: \(error)\n
@@ -108,7 +99,6 @@ extension Notes {
 
 				exit()
 			}
-
 		}
 
 		static func deleteAll() {
@@ -118,6 +108,5 @@ extension Notes {
 		init() {
 			fetchPersistentData()
 		}
-
 	}
 }

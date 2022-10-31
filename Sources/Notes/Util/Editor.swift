@@ -4,7 +4,6 @@ import CWrapper
 
 extension Notes {
 	struct Editor {
-
 		#if os(macOS)
 		// Backspace keycode on linux is different to macOS
 		// Will default to ncurses declaration on linux
@@ -44,7 +43,7 @@ extension Notes {
 		var lines = [String()]
 
 		private mutating func moveUp() {
-			if y-1 >= 0 {
+			if y - 1 >= 0 {
 				y -= 1
 			}
 			if x >= lines[y].count {
@@ -53,7 +52,7 @@ extension Notes {
 			move(Int32(y), Int32(x))
 		}
 		private mutating func moveDown() {
-			if y+1 < LINES-1 && y+1 < lines.count {
+			if y + 1 < LINES - 1 && y + 1 < lines.count {
 				y += 1
 			}
 			if x >= lines[y].count {
@@ -62,13 +61,13 @@ extension Notes {
 			move(Int32(y), Int32(x))
 		}
 		private mutating func moveLeft() {
-			if x-1 >= 0 {
+			if x - 1 >= 0 {
 				x -= 1
 				move(Int32(y), Int32(x))
 			}
 		}
 		private mutating func moveRight() {
-			if x+1 < COLS && x+1 <= lines[y].count {
+			if x + 1 < COLS && x + 1 <= lines[y].count {
 				x += 1
 				move(Int32(y), Int32(x))
 			}
@@ -84,9 +83,8 @@ extension Notes {
 				// Remove that part of the line
 				lines[y].removeSubrange(range)
 				clrtoeol()
-
 			} else {
-				lines.insert("", at: y+1)
+				lines.insert("", at: y + 1)
 			}
 			x = 0
 			moveDown()
@@ -94,8 +92,8 @@ extension Notes {
 
 		private mutating func backspaceKey() {
 			if x == 0 && y > 0 {
-				x = lines[y-1].count
-				lines[y-1] += lines[y]
+				x = lines[y - 1].count
+				lines[y - 1] += lines[y]
 				lines.remove(at: y)
 				clrtoeol()
 				moveUp()
@@ -131,7 +129,7 @@ extension Notes {
 			case 330: // Delete
 				if x == lines[y].count && y != lines.count - 1 {
 					// Bring the line down
-					lines[y] += lines[y+1]
+					lines[y] += lines[y + 1]
 					// Delete the line
 					lines.remove(at: y + 1)
 				} else if x == lines[y].count && y == lines.count - 1 {
@@ -157,11 +155,10 @@ extension Notes {
 					lines[y].insert(letter, at: x)
 					x += 1
 				}
-
 			}
 		}
 		private func printBuffer() {
-			for line in 0...LINES-2 {
+			for line in 0...LINES - 2 {
 				if line >= lines.count {
 					move(line, 0)
 					clrtoeol()
@@ -177,7 +174,7 @@ extension Notes {
 		private func updateStatus() {
 			let status = "Press ESC to save   COL: \(x)   ROW: \(y)"
 			status.withCString { body in
-				movePrint(LINES-1, 0, body, true)
+				movePrint(LINES - 1, 0, body, true)
 			}
 			clrtoeol()
 			move(Int32(y), Int32(x))

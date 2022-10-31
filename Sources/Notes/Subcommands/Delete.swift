@@ -5,7 +5,7 @@ extension Notes {
 		static let configuration = CommandConfiguration(abstract: "Delete a note.")
 		
 		@Flag(name: .shortAndLong)
-		var all: Bool = false
+		var all = false
 		
 		@Argument(help: "Name of the note to delete.")
 		var name: String?
