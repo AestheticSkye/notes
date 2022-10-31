@@ -1,6 +1,5 @@
 extension Notes {
 	struct Note: Codable {
-
 		var title: String
 		var text: [String]
 		var date: String

@@ -6,7 +6,7 @@ extension Notes {
 		static let configuration = CommandConfiguration(abstract: "List all notes. Sorted by date by default.")
 		
 		@Flag(name: .long)
-		var sortByName: Bool = false
+		var sortByName = false
 		
 		@Option(name: .long)
 		var filterByName: String?
@@ -15,7 +15,7 @@ extension Notes {
 		var filterByContents: String?
 		
 		@Flag(name: .shortAndLong, help: "Show more information about the note.")
-		var verbose: Bool = false
+		var verbose = false
 		
 		// Takes in persistence parameter to avoid having to initialize Persistence twice
 		private func sortAndFilter(_ persistence: Persistence) -> [Note] {
@@ -69,7 +69,6 @@ extension Notes {
 					print("")
 				}
 			}
-			
 		}
 	}
 }

@@ -4,9 +4,5 @@ import ArgumentParser
 struct Notes: ParsableCommand {
 	static let configuration = CommandConfiguration(
 		abstract: "Note Utility.",
-		subcommands: [List.self,
-					  New.self,
-					  Edit.self,
-					  Delete.self
-					 ])
+		subcommands: [List.self, New.self, Edit.self, Delete.self])
 }

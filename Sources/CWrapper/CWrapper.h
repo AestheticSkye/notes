@@ -12,7 +12,6 @@ void movePrint(int y, int x, const char * text, bool highlighted) {
 	} else {
 		mvprintw(y, x, text);
 	}
-	
 }
 
 #endif /* CWrapper_h */
