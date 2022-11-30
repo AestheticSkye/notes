@@ -1,4 +1,4 @@
-// Adapted from the source code of this tutorial: https://cheuksblog.ca/tutorial/c++/2015/02/01/ncurses-editor-tutorial-01.html
+/// Adapted from the source code of this tutorial: https://cheuksblog.ca/tutorial/c++/2015/02/01/ncurses-editor-tutorial-01.html
 
 import CWrapper
 
@@ -127,7 +127,7 @@ extension Notes {
 				backspaceKey()
 				return
 			case 330: // Delete
-				if x == lines[y].count && y != lines.count - 1 {
+			if x == lines[y].count && y != lines.count - 1 {
 					// Bring the line down
 					lines[y] += lines[y + 1]
 					// Delete the line

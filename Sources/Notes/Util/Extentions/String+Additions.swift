@@ -22,25 +22,3 @@ extension String {
 		self = String(array)
 	}
 }
-
-extension FixedWidthInteger {
-	// Some keys (function keys) send non UInt8 numbers causing crash
-	func convertToASCII() -> Character? {
-		if self <= 255 && self > 0 {
-			return Character(UnicodeScalar(UInt8(self)))
-		}
-		return nil
-	}
-}
-
-extension FileManager {
-	static func saveJSON(_ json: String) {
-		let documentDirectory = FileManager.default.homeDirectoryForCurrentUser
-		let pathWithFilename = documentDirectory.appendingPathComponent("noteData.json")
-		do {
-			try json.write(to: pathWithFilename, atomically: true, encoding: .utf8)
-		} catch {
-			print(error)
-		}
-	}
-}
